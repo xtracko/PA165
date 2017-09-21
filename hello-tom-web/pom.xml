@@ -8,9 +8,17 @@
   <name>my-webapp Maven Webapp</name>
   <url>http://maven.apache.org</url>
   
-  <!-- TODO you should add tomcat7 maven plugin to the build section and configure final name to my-webapp -->
-   <build>
-  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <path>/my-different-context</path>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
   
   <dependencies>
