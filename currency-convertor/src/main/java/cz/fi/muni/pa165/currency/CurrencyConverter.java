@@ -5,11 +5,11 @@ import java.math.RoundingMode;
 import java.util.Currency;
 
 /**
- * CurrencyConvertor performs conversions between currencies.
+ * CurrencyConverter performs conversions between currencies.
  *
  * @author petr.adamek@embedit.cz
  */
-public interface CurrencyConvertor {
+public interface CurrencyConverter {
 
     /**
      * Returns amount of money in target currency corresponding to given amount
