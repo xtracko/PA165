@@ -2,11 +2,10 @@ package cz.fi.muni.pa165.currency;
 
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.doThrow;
@@ -15,18 +14,17 @@ import static org.mockito.Mockito.when;
 import java.math.BigDecimal;
 import java.util.Currency;
 
+
+@RunWith(MockitoJUnitRunner.class)
 public class CurrencyConverterImplTest {
 
-    private static Currency CZK = Currency.getInstance("CZK");
-    private static Currency EUR = Currency.getInstance("EUR");
+    private static final Currency CZK = Currency.getInstance("CZK");
+    private static final Currency EUR = Currency.getInstance("EUR");
 
     private CurrencyConverter converter;
 
     @Mock
     private ExchangeRateTable exchangeRate;
-
-    @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Before
     public void setup() {
@@ -35,7 +33,6 @@ public class CurrencyConverterImplTest {
 
     @Test
     public void testConvert() throws ExternalServiceFailureException {
-        // Don't forget to test border values and proper rounding.
         when(exchangeRate.getExchangeRate(EUR, CZK))
                 .thenReturn(new BigDecimal("10"));
 
@@ -71,8 +68,8 @@ public class CurrencyConverterImplTest {
 
     @Test
     public void testConvertWithUnknownCurrency() throws ExternalServiceFailureException {
-        doThrow(ExternalServiceFailureException.class)
-                .when(exchangeRate).getExchangeRate(EUR, CZK);
+        when(exchangeRate.getExchangeRate(EUR, CZK))
+                .thenReturn(null);
         assertThatThrownBy(() -> converter.convert(EUR, CZK, BigDecimal.ONE))
                 .isInstanceOf(UnknownExchangeRateException.class);
     }
