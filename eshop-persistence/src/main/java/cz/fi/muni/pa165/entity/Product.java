@@ -39,9 +39,14 @@ public class Product {
 	private byte[] image;
 
 	private String imageMimeType;
-	
 
+	@NotNull
+	@Column(nullable=false,unique=true)
 	private String name;
+
+
+	@ManyToMany
+	private Set<Category> categories = new HashSet();;
 	
 	/*
 	 * The day this item has been added to the eshop
@@ -68,30 +73,18 @@ public class Product {
 	}
 
 
+	public void removeCategory(Category category)	{
+		this.categories.remove(category);
+	}
 
-	/**
-	 * TODO these two methods are here just to make Task04 compilable. After you are finished
-	 * with TASK 02 you should delete this empty method
-	 * @param kitchen
-	 */
-	public void addCategory(Category kitchen) {	
+	public void addCategory(Category c) {
+		categories.add(c);
+		c.addProduct(this);
 	}
-	public List<Product> getCategories() {
-		return null;
+
+	public Set<Category> getCategories() {
+		return Collections.unmodifiableSet(categories);
 	}
-	//TODO after you are done with task02 you can uncomment this methods
-//	public void removeCategory(Category category)	{
-//		this.categories.remove(category);
-//	}
-//	
-//	public void addCategory(Category c) {
-//		categories.add(c);
-//		c.addProduct(this);
-//	}
-//
-//	public Set<Category> getCategories() {
-//		return Collections.unmodifiableSet(categories);
-//	}
 	
 
 

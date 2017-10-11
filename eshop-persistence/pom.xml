@@ -101,5 +101,13 @@
 			<version>10.10.2.0</version>
 		</dependency>
 
+		<!-- For testing -->
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>3.8.0</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 </project>
